@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main,0.3.30-backport ]
   pull_request:
     branches: [ main ]
 
@@ -33,6 +33,27 @@ jobs:
       with:
         codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
         command: after-build --prefix github.com/arttor/helmify/  --coverage-input-type gocov
+
+    - name: Generate app chart
+      run: cat test_data/sample-app.yaml | go run ./cmd/helmify examples/app
+    - name: Fill app secrets
+      run: sed -i 's/""/"abc"/' ./examples/app/values.yaml
+    - name: Dry-run app in k8s cluster
+      run: helm template ./examples/app -n app-ns --create-namespace | kubectl apply --dry-run=server -f -
+
+      # Validate charts with Kubeconform
+    - name: Install Kubeconform
+      run: go install github.com/yannh/kubeconform/cmd/kubeconform@v0.6.1
+
+    - name: Validate app
+      run: helm template ./examples/app -n app-ns --create-namespace | kubeconform -schema-location 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/v3/apis__apiextensions.k8s.io__v1_openapi.json' -strict
+
+    - name: Generate operator example chart
+      run: cat test_data/k8s-operator-kustomize.output | go run ./cmd/helmify examples/operator
+    - name: Fill operator example secrets
+      run: sed -i 's/""/"abc"/' ./examples/operator/values.yaml
+    - name: Validate example operator
+      run: helm template ./examples/operator -n operator-ns --create-namespace | kubeconform -schema-location 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/v3/apis__apiextensions.k8s.io__v1_openapi.json' -strict
 
 #     - name: Create kind cluster
 #       uses: helm/kind-action@v1.0.0-alpha.3

@@ -9,3 +9,12 @@ data:
   my.prop2: {{ .Values.myConfigProps.myProp2 | quote }}
   my.prop3: {{ .Values.myConfigProps.myProp3 | quote }}
   my.services: {{ toYaml .Values.myConfigProps.myServices | nindent 4 }}
+  myval.yaml: |
+    apiVersion: clickhouse.altinity.com/v1
+    kind: ClickHouseInstallationTemplate
+    metadata:
+      name: {{ .Values.myConfigProps.myvalYaml.metadata.name | quote }}
+    spec:
+      templates:
+        podTemplates: {{ toYaml .Values.myConfigProps.myvalYaml.spec.templates.podTemplates
+          | nindent 10 }}

@@ -34,6 +34,14 @@ myConfigProps:
   - docker
   - helm
   - k8s
+  myvalYaml:
+    metadata:
+      name: default-oneperhost-pod-template
+    spec:
+      templates:
+        podTemplates:
+        - distribution: OnePerHost
+          name: default-oneperhost-pod-template
 mySecretCa:
   caCrt: ""
 mySecretVars:
