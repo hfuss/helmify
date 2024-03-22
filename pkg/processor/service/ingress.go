@@ -2,9 +2,9 @@ package service
 
 import (
 	"fmt"
-	"github.com/arttor/helmify/pkg/helmify"
-	"github.com/arttor/helmify/pkg/processor"
-	yamlformat "github.com/arttor/helmify/pkg/yaml"
+	"github.com/onelapahead/helmify/pkg/helmify"
+	"github.com/onelapahead/helmify/pkg/processor"
+	yamlformat "github.com/onelapahead/helmify/pkg/yaml"
 	"io"
 	networkingv1 "k8s.io/api/networking/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

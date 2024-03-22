@@ -6,11 +6,11 @@ import (
 	"io"
 	"strings"
 
-	"github.com/arttor/helmify/pkg/processor"
+	"github.com/onelapahead/helmify/pkg/processor"
 
-	"github.com/arttor/helmify/pkg/helmify"
-	yamlformat "github.com/arttor/helmify/pkg/yaml"
 	"github.com/iancoleman/strcase"
+	"github.com/onelapahead/helmify/pkg/helmify"
+	yamlformat "github.com/onelapahead/helmify/pkg/yaml"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"

@@ -5,7 +5,6 @@ go 1.21
 require (
 	dario.cat/mergo v1.0.0
 	github.com/iancoleman/strcase v0.2.0
-	github.com/arttor/helmify v1.2.4
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.1
 	helm.sh/helm/v3 v3.11.2
@@ -134,8 +133,4 @@ require (
 	sigs.k8s.io/kustomize/api v0.12.1 // indirect
 	sigs.k8s.io/kustomize/kyaml v0.13.9 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
-)
-
-replace (
-	github.com/arttor/helmify => ../helmify
 )
